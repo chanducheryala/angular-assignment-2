@@ -7,7 +7,7 @@
 
       $routeProvider
         .when('/login', {
-          templateUrl: 'legacy/login/template.html',
+          templateUrl: 'legacy/login/login.template.html',
           controller: 'LoginController',
           controllerAs: 'vm'
         });
