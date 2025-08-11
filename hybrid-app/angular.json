@@ -28,7 +28,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/ajs"
+              "src/legacy"
             ],
             "styles": [
               "src/styles.scss"
@@ -36,8 +36,9 @@
             "scripts": [
               "node_modules/angular/angular.js",
               "node_modules/angular-route/angular-route.js",
-              "src/ajs/app.module.ajs.js",
-              "src/ajs/login.component.ajs.js"
+              "src/legacy/app.module.js",
+              "src/legacy/login/service.js",
+              "src/legacy/login/controller.js"
             ]
           },
           "configurations": {
