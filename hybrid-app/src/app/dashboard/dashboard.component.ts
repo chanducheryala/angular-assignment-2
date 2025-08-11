@@ -60,11 +60,7 @@ export class DashboardComponent {
   }
 
   navigateToUsers() {
-    // Use Angular router to navigate to the users route
-    // The empty path will be handled by AngularJS router
-    this.router.navigate(['/']).then(() => {
-      // After Angular navigation, update the hash for AngularJS
-      window.location.hash = '/users';
-    });
+    // Navigate directly to the users route without hash
+    window.location.href = '/users';
   }
 }
