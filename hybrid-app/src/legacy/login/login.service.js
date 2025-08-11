@@ -1,8 +1,8 @@
-(function() {
+
   'use strict';
 
   angular.module('appAjs')
-    .service('AuthServiceAjs', ['$window', function($window) {
+    .service('AuthServiceAjs', ['$window', '$q', '$timeout', function($window, $q, $timeout) {
       function setAuth(username) {
         try {
           $window.localStorage.setItem('auth', '1');
@@ -25,16 +25,19 @@
       }
 
       this.login = function(username, password) {
-        // Simple hardcoded validation
-        if (username === 'admin' && password === 'admin') {
-          setAuth(username);
-          return true;
-        }
-        return false;
+        return $q(function(resolve, reject) {
+          $timeout(function() {
+            if (username === 'admin' && password === 'admin') {
+              setAuth(username);
+              resolve(true);
+            } else {
+              reject(new Error('INVALID_CREDENTIALS'));
+            }
+          }, 400);
+        });
       };
 
       this.logout = function() { clearAuth(); };
       this.isAuthenticated = function() { return isAuthed(); };
       this.getUsername = function() { return getUsername(); };
     }]);
-})();
