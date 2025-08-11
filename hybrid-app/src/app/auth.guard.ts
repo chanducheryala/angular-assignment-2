@@ -7,10 +7,13 @@ export class AuthGuard implements CanActivate {
   constructor(private auth: AuthService, private router: Router) {}
 
   canActivate(): boolean | UrlTree {
+    // If user is authenticated, allow access
     if (this.auth.isAuthenticated()) {
       return true;
     }
-    window.location.href = '/#/login';
-    return false;
+    
+    // If not authenticated, redirect to login using Angular router
+    // This prevents full page reload and infinite redirects
+    return this.router.parseUrl('/login');
   }
 }

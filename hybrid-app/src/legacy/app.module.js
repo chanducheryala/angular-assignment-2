@@ -9,6 +9,11 @@ angular.module('appAjs', ['ngRoute'])
         templateUrl: 'legacy/login/login.template.html',
         controller: 'LoginController',
         controllerAs: 'vm'
+      })
+      .when("/users", {
+        templateUrl: "legacy/users/users.template.html",
+        controller: "UserController",
+        controllerAs: "uc",
       });
   }])
   .run(['$window', '$location', function($window, $location) {

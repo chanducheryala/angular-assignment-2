@@ -38,7 +38,9 @@
               "node_modules/angular-route/angular-route.js",
               "src/legacy/app.module.js",
               "src/legacy/login/login.service.js",
-              "src/legacy/login/login.controller.js"
+              "src/legacy/login/login.controller.js",
+              "src/legacy/users/users.service.js",
+              "src/legacy/users/users.controller.js"
             ]
           },
           "configurations": {
