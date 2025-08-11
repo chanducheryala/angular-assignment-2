@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+/* Hide Angular CLI default showcase so only hybrid hosts are visible */
+.content > *:not(.hybrid-host) {
+  display: none !important;
+}
+.toolbar {
+  display: none !important;
+}
+
+.hybrid-host {
+    width: 100%;
+}
+
+/* AngularJS Login styles */
+.ajs-login {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: linear-gradient(180deg, #f8fafc, #eef2f7);
+}
+.ajs-card {
+  width: 100%;
+  max-width: 360px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  padding: 24px;
+}
+.ajs-title { margin: 0 0 4px; font-size: 22px; font-weight: 700; color: #111827; }
+.ajs-subtitle { margin: 0 0 16px; color: #6b7280; }
+.ajs-field { display: grid; gap: 6px; margin-bottom: 12px; }
+.ajs-field label { font-size: 12px; color: #374151; }
+.ajs-field input {
+  padding: 10px 12px; border-radius: 8px; border: 1px solid #d1d5db; outline: none;
+}
+.ajs-field input:focus { border-color: #1976d2; box-shadow: 0 0 0 3px rgba(25,118,210,0.12); }
+.ajs-error { color: #b91c1c; margin: 6px 0 10px; font-size: 13px; }
+.ajs-btn { width: 100%; background: #1976d2; color: #fff; border: none; border-radius: 8px; padding: 10px 12px; font-weight: 600; cursor: pointer; }
+.ajs-btn:hover { background: #145ea8; }
+.ajs-hint { margin-top: 12px; color: #6b7280; font-size: 12px; text-align: center; }
