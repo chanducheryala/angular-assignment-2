@@ -1,15 +1,15 @@
 "use strict"
 
 angular.module("appAjs")
-    .controller("UserController", ['$scope', 'UserService', function($scope, UserService) {
+    .controller("UserController", ['$scope', 'UserService', '$window', function($scope, UserService, $window) {
         var uc = this;
         uc.users = [];
         uc.loading = true;
         uc.error = null;
 
         $scope.goToDashboard = function() {
-            window.location.href = '/dashboard';
-            window.location.reload();
+            // Use $window to ensure proper navigation in the hybrid app
+            $window.location.href = '/dashboard';
         };
 
         UserService.getUsers()

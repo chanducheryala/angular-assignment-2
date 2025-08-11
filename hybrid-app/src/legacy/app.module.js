@@ -17,18 +17,19 @@ angular.module('appAjs', ['ngRoute'])
       });
   }])
   .run(['$window', '$location', function($window, $location) {
-    var hasHash = !!$window.location.hash;
     var hash = $window.location.hash || '';
     var atRoot = $window.location.pathname === '/' || $window.location.pathname === '';
     var authed = false;
     try { authed = $window.localStorage.getItem('auth') === '1'; } catch (e) {}
 
-    if (authed && (atRoot || hash.indexOf('#/login') === 0)) {
+    // Only redirect if we're at the root path and not already navigating to a hash route
+    if (authed && atRoot && !hash) {
       $window.location.replace('/dashboard');
       return;
     }
 
-    if (!authed && !hasHash && atRoot) {
+    // Redirect to login if not authenticated and not already going to login
+    if (!authed && atRoot && hash.indexOf('#/login') === -1) {
       $location.path('/login');
     }
   }]);
