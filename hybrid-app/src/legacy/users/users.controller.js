@@ -8,6 +8,7 @@ angular.module("appAjs")
         uc.error = null;
 
         $scope.goToDashboard = function() {
+            // Use $window to ensure proper navigation in the hybrid app
             $window.location.href = '/dashboard';
         };
 

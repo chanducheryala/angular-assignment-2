@@ -24,10 +24,7 @@ export class AppModule {
 
   ngDoBootstrap(appRef: ApplicationRef) {
     // Bootstrap Angular root component
-    const rootElement = document.createElement('app-root');
-    document.body.appendChild(rootElement);
-    appRef.bootstrap(AppComponent, rootElement);
-    
+    appRef.bootstrap(AppComponent);
     // Bootstrap AngularJS application
     this.upgrade.bootstrap(document.body, ['appAjs']);
   }

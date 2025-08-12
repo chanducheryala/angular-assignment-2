@@ -2,10 +2,7 @@
 
 angular.module('appAjs', ['ngRoute'])
   .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-    $locationProvider.html5Mode({
-      enabled: true,
-      requireBase: false
-    });
+    $locationProvider.hashPrefix('');
 
     $routeProvider
       .when('/login', {
@@ -13,37 +10,26 @@ angular.module('appAjs', ['ngRoute'])
         controller: 'LoginController',
         controllerAs: 'vm'
       })
-      .when('/users', {
-        templateUrl: 'legacy/users/users.template.html',
-        controller: 'UserController',
-        controllerAs: 'uc'
+      .when("/users", {
+        templateUrl: "legacy/users/users.template.html",
+        controller: "UserController",
+        controllerAs: "uc",
       });
   }])
-  .run(['$window', '$location', '$rootScope', function($window, $location, $rootScope) {
-    var path = $location.path();
+  .run(['$window', '$location', function($window, $location) {
+    var hash = $window.location.hash || '';
+    var atRoot = $window.location.pathname === '/' || $window.location.pathname === '';
     var authed = false;
     try { authed = $window.localStorage.getItem('auth') === '1'; } catch (e) {}
 
-    $rootScope.$on('$routeChangeStart', function(event, next) {
-      var isLoginPage = next.$$route && next.$$route.originalPath === '/login';
-      var isAuthPage = next.$$route && next.$$route.originalPath === '/users';
-      
-      if (isAuthPage && !authed) {
-        event.preventDefault();
-        $location.path('/login');
-      }
-      
-      if (isLoginPage && authed) {
-        event.preventDefault();
-        $location.path('/dashboard');
-      }
-    });
+    // Only redirect if we're at the root path and not already navigating to a hash route
+    if (authed && atRoot && !hash) {
+      $window.location.replace('/dashboard');
+      return;
+    }
 
-    if (path === '/' || path === '') {
-      if (authed) {
-        $location.path('/dashboard');
-      } else {
-        $location.path('/login');
-      }
+    // Redirect to login if not authenticated and not already going to login
+    if (!authed && atRoot && hash.indexOf('#/login') === -1) {
+      $location.path('/login');
     }
   }]);
