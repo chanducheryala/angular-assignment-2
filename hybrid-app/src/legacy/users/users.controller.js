@@ -1,25 +1,54 @@
-"use strict"
+"use strict";
 
 angular.module("appAjs")
-    .controller("UserController", ['$scope', 'UserService', '$window', function($scope, UserService, $window) {
-        var uc = this;
-        uc.users = [];
-        uc.loading = true;
-        uc.error = null;
+.controller("UserController", ['$scope', 'UserService', '$window', '$timeout', function($scope, UserService, $window, $timeout) {
+    var uc = this;
+    uc.users = UserService.getUsers();
+    uc.newUser = {};
+    uc.editingUser = null;
+    uc.success = null;
+    uc.error = null;
 
-        $scope.goToDashboard = function() {
-            // Use $window to ensure proper navigation in the hybrid app
-            $window.location.href = '/dashboard';
-        };
+    $scope.goToDashboard = function() {
+        $window.location.href = '/dashboard';
+    };
 
-        UserService.getUsers()
-            .then(function(users) {
-                uc.users = users;
-            })
-            .catch(function(err) {
-                uc.error = 'Failed to load users';
-            })
-            .finally(function() {
-                uc.loading = false;
-            });
-    }])
+    uc.showAddForm = false;
+    
+    uc.addUser = function() {
+        try {
+            UserService.addUser(uc.newUser);
+            uc.success = "User added successfully!";
+            uc.newUser = {};
+            uc.showAddForm = false;
+            $timeout(function() {
+                uc.success = null;
+            }, 3000);
+        } catch (err) {
+            uc.error = err.message;
+        }
+    };
+
+
+    uc.startEdit = function(user) {
+        uc.editingUser = angular.copy(user);
+    };
+
+
+    uc.cancelEdit = function() {
+        uc.editingUser = null;
+    };
+
+
+    uc.updateUser = function() {
+        UserService.updateUser(uc.editingUser);
+        uc.success = "User updated successfully!";
+        uc.editingUser = null;
+    };
+
+
+    uc.deleteUser = function(user) {
+        UserService.deleteUser(user.id);
+        uc.success = "User deleted successfully!";
+    };
+}]);
